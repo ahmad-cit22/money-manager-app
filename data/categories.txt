@@ -2,41 +2,41 @@
     {
         "id": "1",
         "type": "income",
-        "name": "Salary",
+        "name": "Salary"
     },
     {
         "id": "2",
         "type": "income",
-        "name": "Bonus",
+        "name": "Bonus"
     },
     {
         "id": "3",
         "type": "income",
-        "name": "Gift",
+        "name": "Gift"
     },
     {
         "id": "4",
         "type": "income",
-        "name": "Loan",
+        "name": "Loan"
     },
     {
         "id": "5",
         "type": "expense",
-        "name": "Rent",
+        "name": "Rent"
     },
     {
         "id": "6",
         "type": "expense",
-        "name": "Family",
+        "name": "Family"
     },
     {
         "id": "7",
         "type": "expense",
-        "name": "Education",
+        "name": "Education"
     },
     {
         "id": "8",
         "type": "expense",
-        "name": "Transport",
-    },
+        "name": "Transport"
+    }
 ]

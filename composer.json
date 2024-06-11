@@ -2,7 +2,7 @@
     "name": "user/money-manager-cli",
     "autoload": {
         "psr-4": {
-            "APP\\": "app/"
+            "App\\": "app/"
         }
     },
     "authors": [

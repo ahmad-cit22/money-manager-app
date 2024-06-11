@@ -1,0 +1,15 @@
+{
+    "name": "user/money-manager-cli",
+    "autoload": {
+        "psr-4": {
+            "APP\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nafis Abdullah Ahmad",
+            "email": "n.ahmad.web.cit22@gmail.com"
+        }
+    ],
+    "require": {}
+}

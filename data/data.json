@@ -1,0 +1,21 @@
+{
+  "incomes": [],
+  "expenses": [],
+  "categories": [
+    {
+      "name": "salary"
+    },
+    {
+      "name": "bonus"
+    },
+    {
+      "name": "loan"
+    },
+    {
+      "name": "family"
+    },
+    {
+      "name": "rent"
+    }
+  ]
+}

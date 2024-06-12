@@ -1,7 +1,0 @@
-[
-    {
-        "id": "1",
-        "category": "Rent",
-        "amount": "1000"
-    }
-]

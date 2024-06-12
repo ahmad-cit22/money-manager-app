@@ -1,21 +1,69 @@
 {
-  "incomes": [],
-  "expenses": [],
-  "categories": [
-    {
-      "name": "salary"
-    },
-    {
-      "name": "bonus"
-    },
-    {
-      "name": "loan"
-    },
-    {
-      "name": "family"
-    },
-    {
-      "name": "rent"
-    }
-  ]
+    "incomes": [
+        {
+            "amount": 100,
+            "category": "bonus",
+            "date": "2024-06-12"
+        },
+        {
+            "amount": 500.65,
+            "category": "salary",
+            "date": "2024-06-12"
+        },
+        {
+            "amount": 400,
+            "category": "loan",
+            "date": "2024-06-12"
+        },
+        {
+            "amount": 100,
+            "category": "bonus",
+            "date": "2024-06-12"
+        },
+        {
+            "amount": 500,
+            "category": "salary",
+            "date": "2024-06-12"
+        }
+    ],
+    "expenses": [
+        {
+            "amount": 600,
+            "category": "Rent",
+            "date": "2024-06-12"
+        },
+        {
+            "amount": 100.52,
+            "category": "family",
+            "date": "2024-06-12"
+        },
+        {
+            "amount": 300,
+            "category": "rent",
+            "date": "2024-06-12"
+        }
+    ],
+    "categories": [
+        {
+            "name": "salary"
+        },
+        {
+            "name": "bonus"
+        },
+        {
+            "name": "loan"
+        },
+        {
+            "name": "family"
+        },
+        {
+            "name": "rent"
+        },
+        {
+            "name": "demo"
+        },
+        {
+            "name": "test"
+        }
+    ]
 }

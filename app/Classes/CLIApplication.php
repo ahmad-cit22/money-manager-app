@@ -14,49 +14,41 @@ class CLIApplication {
     public function run(): void {
 
         while (true) {
-            echo "\n";
-            echo "\033[34mWelcome to Money Manager App\n";
-            echo "=================================\033[0m\n";
-            echo "\n";
+            echo "\n\033[34mWelcome to Money Manager App\n";
+            echo "=================================\033[0m\n\n";
             echo "Available features:\n";
-            echo "\n";
-            echo "1. Add Income\n";
+            echo "\n1. Add Income\n";
             echo "2. Add Expense\n";
             echo "3. View Incomes\n";
             echo "4. View Expenses\n";
             echo "5. View Savings\n";
             echo "6. View Categories\n";
             echo "7. Add New Category\n";
-            echo "8. Exit\n";
-            echo "\n";
+            echo "8. Exit\n\n";
+
             $option = trim(readline("Enter your option: "));
 
             switch ($option) {
                 case "1":
+                    $this->insertHeader();
 
                     while (true) {
-                        $this->insertHeader();
-
                         $amount = $this->getInput("Enter income amount: ");
 
                         if (is_numeric($amount) && $amount > 0) {
                             break;
                         }
-                        echo "\n";
-                        echo "\033[31mError: Invalid amount! Please insert a positive number.\033[0m\n";
+
+                        echo $this->moneyManager->formatMessage("Error: Invalid amount! Please insert a positive number.", 'error');
                     }
 
                     while (true) {
-                        $this->insertHeader();
-
                         $category = $this->getInput("Enter income category: ");
 
                         if (empty($category)) {
-                            echo "\n";
-                            echo "\033[31mError: Category cannot be empty!\033[0m\n";
+                            echo $this->moneyManager->formatMessage("Error: Category cannot be empty!", 'error');
                         } elseif (!$this->moneyManager->categoryExists($category)) {
-                            echo "\n";
-                            echo "\033[31mError: Category does not exist! You must add it first.\033[0m\n";
+                            echo $this->moneyManager->formatMessage("Error: Category does not exist! You must add it first.", 'error');
                         } else {
                             break;
                         }
@@ -66,27 +58,24 @@ class CLIApplication {
                     break;
 
                 case "2":
+                    $this->insertHeader();
                     while (true) {
-                        $this->insertHeader();
-
                         $amount = $this->getInput("Enter expense amount: ");
+
                         if (is_numeric($amount) && $amount > 0) {
                             break;
                         }
-                        echo "\n";
-                        echo "\033[31mError: Invalid amount! Please insert a positive number.\033[0m\n";
+
+                        echo $this->moneyManager->formatMessage("Error: Invalid amount! Please insert a positive number.", 'error');
                     }
 
                     while (true) {
-                        $this->insertHeader();
-
                         $category = $this->getInput("Enter expense category: ");
+
                         if (empty($category)) {
-                            echo "\n";
-                            echo "\033[31mError: Category cannot be empty!\033[0m\n";
+                            echo $this->moneyManager->formatMessage("Error: Category cannot be empty!", 'error');
                         } elseif (!$this->moneyManager->categoryExists($category)) {
-                            echo "\n";
-                            echo "\033[31mError: Category does not exist! You must add it first.\033[0m\n";
+                            echo $this->moneyManager->formatMessage("Error: Category does not exist! You must add it first.", 'error');
                         } else {
                             break;
                         }
@@ -120,25 +109,20 @@ class CLIApplication {
                     break;
 
                 case "7":
+                    $this->insertHeader();
                     while (true) {
-                        $this->insertHeader();
 
                         $category = $this->getInput("Enter category name: ");
+
                         if (empty($category)) {
-                            $this->insertHeader();
 
-                            echo "\n";
-                            echo "\033[31mError: Category name cannot be empty!\033[0m\n";
+                            echo $this->moneyManager->formatMessage("Error: Category name cannot be empty!", 'error');
                         } elseif (!preg_match('/^[A-Za-z]+$/', $category)) {
-                            $this->insertHeader();
 
-                            echo "\n";
-                            echo "\033[31mError: Category name can only contain letters (A-z).\033[0m\n";
+                            echo $this->moneyManager->formatMessage("Error: Category name can only contain letters (A-z).", 'error');
                         } elseif ($this->moneyManager->categoryExists($category)) {
-                            $this->insertHeader();
 
-                            echo "\n";
-                            echo "\033[31mError: Category already exists!\033[0m\n";
+                            echo $this->moneyManager->formatMessage("Error: Category already exists!", 'error');
                         } else {
                             break;
                         }
@@ -150,14 +134,15 @@ class CLIApplication {
                 case "8":
                     $this->insertHeader();
 
-                    echo "\033[32mThanks for using Money Manager App. Goodbye!\033[0m\n";
+                    echo $this->moneyManager->formatMessage(
+                        "Thanks for using Money Manager App. Goodbye!",
+                        'success'
+                    );
                     exit;
 
                 default:
-                    $this->insertHeader();
 
-                    echo "\n";
-                    echo "\033[31mError: Invalid option! Please enter a valid option.\033[0m\n";
+                    echo $this->moneyManager->formatMessage("Error: Invalid option! Please enter a valid option.", 'error');
                     break;
 
                 case "":
@@ -179,8 +164,7 @@ class CLIApplication {
         $input = trim(readline($prompt));
 
         if ($input === '#') {
-            // echo "";
-            echo "\n\033[32mGoing back to main menu.\033[0m\n";
+            echo $this->moneyManager->formatMessage("Going back to main menu.", 'success');
             $this->run();
         } else {
             return $input;

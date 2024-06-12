@@ -6,7 +6,6 @@ use App\Classes\CLIApplication;
 
 require 'vendor/autoload.php';
 
+// Run the application
 $app = new CLIApplication();
 $app->run();
-
-// var_dump($app);

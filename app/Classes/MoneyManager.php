@@ -10,7 +10,6 @@ class MoneyManager {
     private $expenses = [];
     private $categories = [];
 
-
     public function __construct() {
         $this->loadData();
     }
@@ -19,48 +18,50 @@ class MoneyManager {
         $this->incomes[] = new Income($amount, $category, date('Y-m-d'));
         $this->saveData();
 
-        echo "\033[32mIncome added successfully!\033[0m\n";
+        echo $this->formatMessage('Income added successfully!', 'success');
     }
 
     public function addExpense(float $amount, string $category): void {
         $this->expenses[] = new Expense($amount, $category, date('Y-m-d'));
         $this->saveData();
 
-        echo "\033[32mExpense added successfully!\033[0m\n";
+        echo $this->formatMessage('Expense added successfully!', 'success');
     }
 
     public function addCategory(string $name): void {
         $this->categories[] = new Category($name);
         $this->saveData();
 
-        echo "\033[32mCategory added successfully!\033[0m\n";
+        echo $this->formatMessage('Category added successfully!', 'success');
     }
 
     public function getIncomes(): void {
         if (empty($this->incomes)) {
-            echo "\033[31mNo incomes found!\033[0m\n";
+            echo $this->formatMessage('No incomes found!', 'error');
             return;
         }
 
-        echo "\033[32mIncomes\n";
-        echo "--------------\033[0m\n";
+        echo "\n\033[32mIncomes\n";
+        echo "----------------\033[0m\n\n";
 
         foreach ($this->incomes as $key => $income) {
-            echo "{$key}. Amount: {$income->amount}, Category: {$income->category}, Date: {$income->date}\n";
+            $k = $key + 1;
+            echo "{$k}. Amount: {$income->amount}, Category: {$income->category}, Date: {$income->date}\n";
         }
     }
 
     public function getExpenses(): void {
         if (empty($this->expenses)) {
-            echo "\033[31mNo expenses found!\033[0m\n";
+            echo $this->formatMessage('No expenses found!', 'error');
             return;
         }
 
-        echo "\033[32mExpenses\n";
-        echo "--------------\033[0m\n";
+        echo "\n\033[32mExpenses\n";
+        echo "----------------\033[0m\n\n";
 
         foreach ($this->expenses as $key => $expense) {
-            echo "{$key}. Amount: {$expense->amount}, Category: {$expense->category}, Date: {$expense->date}\n";
+            $k = $key + 1;
+            echo "{$k}. Amount: {$expense->amount}, Category: {$expense->category}, Date: {$expense->date}\n";
         }
     }
 
@@ -74,20 +75,21 @@ class MoneyManager {
         }, $this->expenses ?? []));
 
         $savings = ($totalIncome - $totalExpense) ?? 0;
-        echo "\033[32mTotal Savings: {$savings}\033[0m\n";
+        echo $this->formatMessage("Total Savings: {$savings}", 'success');
     }
 
     public function getCategories(): void {
         if (empty($this->categories)) {
-            echo "\033[31mNo categories found!\033[0m\n";
+            echo $this->formatMessage('No categories found!', 'error');
             return;
         }
 
-        echo "\033[32mCategories\n";
-        echo "--------------\033[0m\n";
+        echo "\n\033[32mCategories\n";
+        echo "----------------\033[0m\n\n";
 
         foreach ($this->categories as $key => $category) {
-            echo "{$key}. Name: {$category->name}\n";
+            $k = $key + 1;
+            echo "{$k}. Name: {$category->name}\n";
         }
     }
 
@@ -122,26 +124,22 @@ class MoneyManager {
     public function loadData(): void {
         $filePath = 'data/data.json';
 
-        // Check if the file exists and is readable
         if (!file_exists($filePath) || !is_readable($filePath)) {
-            echo "\033[31mError: File not found or not readable!\033[0m\n";
+            echo $this->formatMessage("Error: File not found or not readable!", 'error');
             return;
         }
 
-        // Read the contents of the file
         $fileContent = trim(file_get_contents($filePath));
 
         if (empty($fileContent) || $fileContent === false) {
-            echo "\033[31mError: File is empty or not readable!\033[0m\n";
+            echo $this->formatMessage("Error: File is empty or not readable!", 'error');
             return;
         }
 
-        // Decode JSON contents into an associative array
         $data = json_decode($fileContent, true);
 
-        // Check for errors during JSON decoding
         if (json_last_error() !== JSON_ERROR_NONE) {
-            echo '\033[31mError decoding JSON: \033[0m' . json_last_error_msg() . "\n";
+            echo $this->formatMessage("Error decoding JSON: " . json_last_error_msg(), 'error');
             return;
         }
 
@@ -158,8 +156,18 @@ class MoneyManager {
                 return new Category($item['name']);
             }, $data['categories'] ?? []);
         } else {
-            echo "\033[31mError: Failed to load data!\033[0m\n";
+            echo $this->formatMessage("Error: Failed to load data!", 'error');
             return;
         }
+    }
+
+    public function formatMessage(string $message, string $type = null): string {
+        if ($type === 'error') {
+            return "\n\033[31m{$message}\033[0m\n\n";
+        } elseif ($type === 'success') {
+            return "\n\033[32m{$message}\033[0m\n\n";
+        }
+
+        return "\n\033[33m{$message}\033[0m\n\n";
     }
 }
